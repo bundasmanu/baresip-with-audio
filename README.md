@@ -7,7 +7,7 @@
     - [Host changes](#host-changes)
       - [Execution](#execution)
       - [Set a different device - Enabling Device connected on Jack](#set-a-different-device---enabling-device-connected-on-jack)
-    - [docker-compose changes](#docker-compose-changes)
+    - [Change HOST\_PULSE\_CONFIG\_FOLDER Environment Variable](#change-host_pulse_config_folder-environment-variable)
   - [How use new Modules](#how-use-new-modules)
   - [.baresip folder](#baresip-folder)
   - [Build Image](#build-image)
@@ -65,14 +65,14 @@ pactl list sinks ### list the sinks available on host - select the device wanted
 
 **Hint:** I recommend to use this approach, because you will get audio, even if a device is not connected to the `jack`.
 
-### docker-compose changes
+### Change HOST_PULSE_CONFIG_FOLDER Environment Variable
 
 The container needs access to the `pulse` sinks, so there is a `bind-mount` to allow access between host <--> container.
-It is therefore necessary to identify on the host where the `.config/pulse` folder is located, and change the `docker-compose` accordingly.
+It is therefore necessary to identify on the host, where the `.config/pulse` folder is located, and change the `HOST_PULSE_CONFIG_FOLDER` (in `.env` file) accordingly.
 
-For example, if it is in: `/Users/myuser/.config/pulse`, the mount should be:
-`/Users/gustavoalmeida/.config/pulse:/home/pulseaudio/.config/pulse`.
-The destination in the container must not be changed, only the host source, i.e. change only: `/Users/gustavoalmeida/.config/pulse`.
+For example, if the location on host is: `/Users/myuser/.config/pulse`, the mount should be:
+`/Users/myuser/.config/pulse:/home/pulseaudio/.config/pulse`.
+The destination in the container must not be changed, only the host source.
 
 ## How use new Modules
 

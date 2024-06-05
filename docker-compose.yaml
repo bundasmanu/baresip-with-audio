@@ -3,6 +3,7 @@ version: '3'
 services:
 
   baresip-with-audio:
+    image: bundasmanu/baresip-with-audio:v1.0.0
     build:
       context: ./
       dockerfile: Dockerfile
@@ -20,7 +21,7 @@ services:
       - "10000-60000"
     volumes:
       - ./.baresip:/root/.baresip
-      - /Users/myuser/.config/pulse:/home/pulseaudio/.config/pulse
+      - $HOST_PULSE_CONFIG_FOLDER:/home/pulseaudio/.config/pulse
       - ./audios:/root/audios
     platform: linux/amd64
     shm_size: 256m
