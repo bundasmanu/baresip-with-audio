@@ -1,0 +1,61 @@
+version: '3'
+
+services:
+
+  baresip-with-audio:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      target: baresip-with-audio
+      args:
+        RE_VERSION: ${RE_VERSION:-v3.4.0}
+        BARESIP_VERSION: ${BARESIP_VERSION:-v3.4.0}
+        MODULES_LIST: ${MODULES_LIST}
+    environment:
+      - PULSE_SERVER=host.docker.internal
+    network_mode: host
+    expose:
+      - 5060
+      - 5061
+      - "10000-60000"
+    volumes:
+      - ./.baresip:/root/.baresip
+      - /Users/gustavoalmeida/.config/pulse:/home/pulseaudio/.config/pulse
+      - ./audios:/root/audios
+    platform: linux/amd64
+    shm_size: 256m
+    ulimits:
+      rtprio:
+        soft: 95
+        hard: 95
+      memlock:
+        soft: -1
+        hard: -1
+    cap_add:
+      - SYS_NICE
+      - SYS_RESOURCE
+    privileged: true
+    tty: true
+
+  libre:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      target: libre
+      args:
+        RE_VERSION: ${RE_VERSION:-v3.4.0}
+    platform: linux/amd64
+    privileged: true
+    tty: true
+
+  baresip-modules:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      target: baresip-modules
+      args:
+        BARESIP_VERSION: ${BARESIP_VERSION:-v3.4.0}
+        MODULES_LIST: ${MODULES_LIST}
+    platform: linux/amd64
+    privileged: true
+    tty: true
