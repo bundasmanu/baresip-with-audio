@@ -20,7 +20,7 @@ services:
       - "10000-60000"
     volumes:
       - ./.baresip:/root/.baresip
-      - /Users/gustavoalmeida/.config/pulse:/home/pulseaudio/.config/pulse
+      - /Users/myuser/.config/pulse:/home/pulseaudio/.config/pulse
       - ./audios:/root/audios
     platform: linux/amd64
     shm_size: 256m
