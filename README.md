@@ -3,6 +3,7 @@
 - [Baresip-Audio-Support](#baresip-audio-support)
   - [Context](#context)
   - [Enable Audio](#enable-audio)
+    - [Requirements](#requirements)
     - [Host changes](#host-changes)
       - [Execution](#execution)
       - [Set a different device - Enabling Device connected on Jack](#set-a-different-device---enabling-device-connected-on-jack)
@@ -29,6 +30,10 @@ Essentially, it provides the following:
 - Easy testing of new versions of `baresip` and new modules, using environment variables;
 
 ## Enable Audio
+
+### Requirements
+
+`brew` must be installed on the host machine, as it is used to install `pulseaudio`.
 
 ### Host changes
 
@@ -57,6 +62,8 @@ chmod 0777 configure-pulseaudio-osx.sh
 pactl list sinks ### list the sinks available on host - select the device wanted from description Field
 ./configure-pulseaudio-osx.sh "External Headphones"
 ```
+
+**Hint:** I recommend to use this approach, because you will get audio, even if a device is not connected to the `jack`.
 
 ### docker-compose changes
 
