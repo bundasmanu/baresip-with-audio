@@ -1,12 +1,12 @@
 ## run
-FROM bitnami/minideb:bookworm as base
+FROM bitnami/minideb:bookworm AS base
 
 WORKDIR /root/
 
 RUN install_packages linux-headers-generic git ca-certificates build-essential openssl wget clang-15 make cmake pkg-config apt-utils python3
 
 ## libre install
-FROM base as libre
+FROM base AS libre
 
 ARG RE_VERSION
 
@@ -18,7 +18,7 @@ RUN install_packages libssl-dev libz-dev && \
     cmake --install build --prefix dist && cp -a dist/* /usr/
 
 ## baresip logic
-FROM libre as baresip-modules
+FROM libre AS baresip-modules
 
 ARG BARESIP_VERSION
 ARG MODULES_LIST
@@ -33,7 +33,7 @@ RUN git clone -b ${BARESIP_VERSION} --single-branch https://github.com/baresip/b
     cmake --build build -j && \
     cmake --install build --prefix dist && cp -a dist/* /usr/
 
-FROM baresip-modules as baresip-with-audio
+FROM baresip-modules AS baresip-with-audio
 
 COPY entrypoint.sh ./
 
