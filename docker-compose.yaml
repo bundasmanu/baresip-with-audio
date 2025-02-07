@@ -15,10 +15,6 @@ services:
     environment:
       - PULSE_SERVER=host.docker.internal
     network_mode: host
-    expose:
-      - 5060
-      - 5061
-      - "10000-60000"
     volumes:
       - ./.baresip:/root/.baresip
       - $HOST_PULSE_CONFIG_FOLDER:/home/pulseaudio/.config/pulse
