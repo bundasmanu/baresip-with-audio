@@ -91,7 +91,7 @@ By default, the only file to change is : `accounts`. There are no pre-created ac
 ## Build Image
 
 ```sh
-docker compose build
+docker compose build baresip-with-audio
 ```
 
 ## Run baresip
