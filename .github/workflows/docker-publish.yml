@@ -67,8 +67,8 @@ jobs:
             context: .
             push: true
             tags: |
-              ghcr.io/bundasmanu/baresip-with-audio:${{ steps.extract_tag.outputs.tag }}
-              bundasmanu/baresip-with-audio:${{ steps.extract_tag.outputs.tag }}
+              ghcr.io/${{ secrets.DOCKERHUB_USERNAME }}/baresip-with-audio:${{ steps.extract_tag.outputs.tag }}
+              ${{ secrets.DOCKERHUB_USERNAME }}/baresip-with-audio:${{ steps.extract_tag.outputs.tag }}
             build-args: |
               RE_VERSION=${{ env.RE_VERSION }}
               BARESIP_VERSION=${{ env.BARESIP_VERSION }}
