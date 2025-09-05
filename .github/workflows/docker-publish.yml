@@ -42,9 +42,24 @@ jobs:
               echo "tag=dev" >> $GITHUB_OUTPUT
             fi
 
+        - name: Load .env file as environment variables
+          id: dotenv
+          run: |
+            set -a
+            source .env
+            set +a
+
         - name: Build and push Docker image
           uses: docker/build-push-action@v5
+          env:
+            RE_VERSION: ${{ env.RE_VERSION }}
+            BARESIP_VERSION: ${{ env.BARESIP_VERSION }}
+            MODULES_LIST: ${{ env.MODULES_LIST }}
           with:
             context: .
             push: true
             tags: bundasmanu/baresip-with-audio:${{ steps.extract_tag.outputs.tag }}
+            build-args: |
+              RE_VERSION=${{ env.RE_VERSION }}
+              BARESIP_VERSION=${{ env.BARESIP_VERSION }}
+              MODULES_LIST=${{ env.MODULES_LIST }}
