@@ -73,13 +73,3 @@ jobs:
               RE_VERSION=${{ env.RE_VERSION }}
               BARESIP_VERSION=${{ env.BARESIP_VERSION }}
               MODULES_LIST=${{ env.MODULES_LIST }}
-
-        - name: Make image public (GHCR)
-          run: |
-            IMAGE_ID=ghcr.io/bundasmanu/baresip-with-audio:${{ steps.extract_tag.outputs.tag }}
-            PACKAGE=baresip-with-audio
-            OWNER=bundasmanu
-            TOKEN=${{ secrets.GITHUB_TOKEN }}
-            curl -X PATCH -H "Authorization: Bearer $TOKEN" -H "Accept: application/vnd.github.v3+json" \
-              https://api.github.com/orgs/$OWNER/packages/container/$PACKAGE/visibility \
-              -d '{"visibility":"public"}' || true
