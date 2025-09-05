@@ -42,12 +42,9 @@ jobs:
               echo "tag=dev" >> $GITHUB_OUTPUT
             fi
 
-        - name: Load .env file as environment variables
-          id: dotenv
+        - name: Export .env variables to GITHUB_ENV
           run: |
-            set -a
-            source .env
-            set +a
+            grep -v '^#' .env | xargs -d '\n' -I {} echo {} >> $GITHUB_ENV
 
         - name: Build and push Docker image
           uses: docker/build-push-action@v5
